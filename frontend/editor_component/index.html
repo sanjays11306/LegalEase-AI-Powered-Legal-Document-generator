@@ -1,0 +1,157 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap');
+*{box-sizing:border-box} body{margin:0;font-family:'Inter',sans-serif;color:#0B2A52;background:transparent}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:16px;box-shadow:0 6px 24px rgba(11,42,82,.08);padding:16px 18px;min-width:0}
+h3{font-family:'Source Serif 4',serif;margin:0 0 2px;font-size:1.1rem;color:#071D3A}
+.sub{margin:0 0 10px;color:#5F6B7A;font-size:.85rem}
+.tb{display:flex;gap:4px;align-items:center;flex-wrap:wrap;border:1px solid #D5DEEA;border-bottom:none;border-radius:8px 8px 0 0;padding:6px 8px;background:#F6FAFF}
+.tb button{border:1px solid transparent;background:transparent;color:#0B2A52;border-radius:6px;min-width:32px;height:32px;cursor:pointer;font-size:.95rem;padding:0 8px}
+.tb button:hover{background:#EAF3FC;border-color:#C9D6E6}.tb button.on{background:#EAF3FC;border-color:#C9D6E6}
+.tb .div{width:1px;height:20px;background:#D5DEEA;margin:0 4px}
+.tb .sp{flex:1}.tb .reset{border:1px solid #C9D6E6;background:#fff;font-size:.82rem}
+.fr{display:none;gap:6px;align-items:center;flex-wrap:wrap;border:1px solid #D5DEEA;border-bottom:none;padding:6px 8px;background:#fff}
+.fr.open{display:flex}
+.fr input{flex:1;min-width:110px;height:30px;border:1px solid #D5DEEA;border-radius:6px;padding:0 8px;font:inherit;font-size:.85rem;outline:none}
+.fr input:focus{border-color:#D9A62E}
+.fr button{height:30px;border:1px solid #C9D6E6;background:#fff;color:#0B2A52;border-radius:6px;cursor:pointer;font-size:.8rem;padding:0 9px}
+.fr button:hover{background:#EAF3FC}.fr .cnt{font-size:.78rem;color:#5F6B7A;min-width:64px}
+textarea{width:100%;height:560px;resize:vertical;border:1px solid #D5DEEA;border-radius:0;padding:14px 16px;display:block;
+ font-family:Georgia,'Times New Roman',serif;font-size:14.5px;line-height:1.5;color:#111;outline:none}
+textarea:focus{border-color:#D9A62E;box-shadow:0 0 0 2px rgba(217,166,46,.2)}
+.sb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border:1px solid #D5DEEA;border-top:none;border-radius:0 0 8px 8px;padding:6px 10px;background:#F6FAFF;font-size:.78rem;color:#5F6B7A}
+.savebtn{border:2px solid #D9A62E;background:#071D3A;color:#fff;border-radius:8px;height:32px;padding:0 14px;font:600 .82rem 'Inter',sans-serif;cursor:pointer;letter-spacing:.02em}
+.savebtn:hover{background:#0B2A52}.savebtn:disabled{opacity:.7;cursor:default}
+.chip{border-radius:999px;padding:2px 9px;font-size:.75rem;font-weight:500;border:1px solid transparent}
+.chip.ok{background:#E8F7EE;color:#136B3A;border-color:#CDEBD8}
+.chip.warn{background:#FFF6DC;color:#7A5A00;border-color:#F0DC9C;cursor:pointer}
+.chip.mod{background:#EAF3FC;color:#0B2A52;border-color:#C9D6E6}
+.scroll{background:#F1F5FA;border:1px solid #DCE4EF;border-radius:10px;padding:12px}
+.paper{position:relative;background:#fff;height:610px;overflow-y:auto;padding:30px 36px;box-shadow:0 1px 4px rgba(0,0,0,.08);
+ font-family:'Times New Roman',Times,serif;color:#111;font-size:14px;line-height:1.5}
+.paper>div{border-radius:3px;transition:background .15s}.paper>div.cur{background:#FFF9E6;box-shadow:-4px 0 0 #D9A62E}
+.paper .t{text-align:center;font-weight:700;font-size:1.45em;margin:0 0 4px;letter-spacing:.04em}
+.paper .s{text-align:center;font-weight:700;margin:0 0 18px;padding-bottom:10px;border-bottom:1.5px solid #222}
+.paper .h{font-weight:700;margin:18px 0 4px;letter-spacing:.03em}
+.paper .p{margin:0 0 6px;text-align:justify}.paper .b{margin:0 0 3px 22px}
+.paper .c{margin:0 0 6px;padding-left:2.6em;text-indent:-2.6em;text-align:justify}
+.paper .c .n{display:inline-block;width:2.6em;text-indent:0}
+mark.ph{background:#FFF0B3;border-bottom:1.5px dashed #D9A62E;padding:0 2px;color:inherit}
+</style></head><body>
+<div class="grid">
+ <section class="card"><h3>Edit Document Content</h3>
+  <p class="sub">**bold**, *italic*, "- " bullets, "1.1 " clauses, ALL-CAPS lines (or lines starting with "# ") for headings. Ctrl+B / Ctrl+I work too. <b>Ctrl+S</b> saves.</p>
+  <div class="tb">
+   <button id="bU" title="Undo (Ctrl+Z)">&#8630;</button><button id="bY" title="Redo (Ctrl+Y)">&#8631;</button><span class="div"></span>
+   <button id="bB" title="Bold (Ctrl+B)"><b>B</b></button><button id="bI" title="Italic (Ctrl+I)"><i>I</i></button>
+   <button id="bH" title="Make line(s) a heading (UPPERCASE)">H</button><button id="bL" title="Toggle bullet">&#8226;</button><span class="div"></span>
+   <button id="bF" title="Find and replace">&#128269; Find</button><button id="bN" title="Jump to next placeholder">&#9873; Next blank</button>
+   <span class="sp"></span><button id="bR" class="reset" title="Restore original text">&#8634; Reset to Original</button></div>
+  <div class="fr" id="fr">
+   <input id="fq" placeholder="Find" autocomplete="off"><input id="fw" placeholder="Replace with" autocomplete="off">
+   <button id="fn">Next</button><button id="f1">Replace</button><button id="fa">Replace all</button><span class="cnt" id="fc"></span><button id="fx" title="Close">&#10005;</button></div>
+  <textarea id="ed" spellcheck="true"></textarea>
+  <div class="sb"><span id="st"></span><span style="flex:1"></span><span class="chip mod" id="cm" style="display:none">Edited</span><span class="chip" id="cb"></span><button id="bS" class="savebtn" title="Save changes (Ctrl+S)">&#128190; Save &amp; continue</button></div></section>
+ <section class="card"><h3>Live Preview</h3><p class="sub">Updates as you type and follows your cursor. Highlighted items are placeholders to fill in.</p>
+  <div class="scroll"><div class="paper" id="pv"></div></div></section>
+</div>
+<script>
+const $=id=>document.getElementById(id), ta=$('ed'), pv=$('pv');
+let token=null, original='', timer=null, blocks=[];
+const PH=/\[[^\]\n]{1,60}\]|_{4,}/g, SIG=/^(\d+\.\s*)?(Signature|Name|Date)\s*:|^(\d+\.\s*)?([^:_\n]{1,40}:\s*_{3,}\s*)+$/i, INDIC=/[\u0900-\u0DFF]/;
+const send=(type,extra)=>window.parent.postMessage(Object.assign({isStreamlitMessage:true,type:'streamlit:'+type},extra||{}),'*');
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=(s,mark)=>{s=esc(s);if(mark)s=s.replace(PH,m=>'<mark class="ph">'+m+'</mark>');
+  return s.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>');};
+function render(){ // mirrors parse_document()/render_html() in exporters/document_utils.py
+  let seen=0, out=[]; blocks=[];
+  ta.value.replace(/\r/g,'').split('\n').forEach((raw,i)=>{
+    let line=raw.trim(); if(!line) return; seen++;
+    const explicit=line.startsWith('# '); if(explicit) line=line.slice(2).trim();
+    const core=line.replace(/^\d+\.\s*/,'').replace(/\*\*/g,''), isUp=core===core.toUpperCase()&&core!==core.toLowerCase();
+    const rec=line.match(/^([A-Z]\.)\s+(.*)$/), recUp=rec&&rec[2].replace(/\*\*/g,'')===rec[2].replace(/\*\*/g,'').toUpperCase()&&rec[2]!==rec[2].toLowerCase();
+    const cl=line.match(/^(\d+\.\d+)\s+(.*)$/)||(rec&&!recUp&&rec);
+    const uncasedHead=/^\d+\.\s+\S/.test(line)&&core.length<70&&!/[a-z:_]|[.;,\u0964]$/.test(core)&&INDIC.test(core); // Tamil/Hindi numbered headings
+    let k, html, mark=!SIG.test(line);
+    if(seen===1){k='t';html=inl(line,mark);} else if(seen===2){k='s';html=inl(line,mark);}
+    else if(explicit){k='h';html=inl(line,mark);}
+    else if(cl){k='c';html='<span class="n">'+esc(cl[1])+'</span>'+inl(cl[2],mark);}
+    else if(line.startsWith('- ')){k='b';html='\u2022 '+inl(line.slice(2),mark);}
+    else if((isUp&&core.length<70)||uncasedHead){k='h';html=inl(line,mark);} else {k='p';html=inl(line,mark);}
+    out.push('<div class="'+k+'" data-l="'+i+'">'+html+'</div>'); blocks.push(i);
+  });
+  pv.innerHTML=out.join(''); stats(); follow();
+}
+function blanks(){ // [{s,e}] offsets of placeholders (signature-line blanks are intentional, skipped)
+  const res=[]; let off=0;
+  for(const ln of ta.value.split('\n')){ if(!SIG.test(ln.trim())){PH.lastIndex=0;let m;while((m=PH.exec(ln)))res.push({s:off+m.index,e:off+m.index+m[0].length});}
+    off+=ln.length+1; }
+  return res;
+}
+function stats(){
+  const v=ta.value, words=(v.match(/\S+/g)||[]).length, n=blanks().length, cb=$('cb');
+  $('st').textContent=words.toLocaleString()+' words \u00B7 '+v.length.toLocaleString()+' characters';
+  cb.className='chip '+(n?'warn':'ok'); cb.textContent=n?n+' placeholder'+(n>1?'s':'')+' to fill \u2192':'\u2714 No placeholders left';
+  cb.title=n?'Click to jump to the next one':''; $('cm').style.display=v!==original?'':'none';
+}
+function follow(){ // highlight + scroll the preview block for the line the cursor is on
+  const ln=ta.value.slice(0,ta.selectionStart).split('\n').length-1; let best=null;
+  for(const el of pv.children){ if(+el.dataset.l<=ln) best=el; else break; }
+  pv.querySelectorAll('.cur').forEach(e=>e.classList.remove('cur'));
+  if(!best) return; best.classList.add('cur');
+  const top=best.offsetTop, bot=top+best.offsetHeight;
+  if(top<pv.scrollTop+10||bot>pv.scrollTop+pv.clientHeight-30) pv.scrollTo({top:Math.max(0,top-pv.clientHeight/3),behavior:'smooth'});
+}
+const frame=()=>send('setFrameHeight',{height:document.documentElement.scrollHeight+6});
+const push=(extra)=>{timer=null;send('setComponentValue',{value:Object.assign({text:ta.value,token:token},extra&&extra.save?extra:{}),dataType:'json'});};
+function changed(){render();clearTimeout(timer);timer=setTimeout(push,1200);}   // idle autosave; blur / Save push immediately
+function flush(){if(timer){clearTimeout(timer);push();}}
+// Edits go through execCommand so the browser's own undo/redo history keeps working.
+function edit(s,e,str,a,b){ta.focus();ta.setSelectionRange(s,e);
+  if(!document.execCommand('insertText',false,str)){ta.setRangeText(str,s,e,'end');changed();}
+  ta.setSelectionRange(a,b);follow();}
+function wrap(m){let s=ta.selectionStart,e=ta.selectionEnd;const v=ta.value;
+  if(s===e){while(s>0&&/\S/.test(v[s-1]))s--;while(e<v.length&&/\S/.test(v[e]))e++;}   // no selection -> word at cursor
+  const sel=v.slice(s,e);
+  if(sel&&v.slice(s-m.length,s)===m&&v.slice(e,e+m.length)===m) return edit(s-m.length,e+m.length,sel,s-m.length,s-m.length+sel.length); // toggle off
+  const t=sel||'text'; edit(s,e,m+t+m,s+m.length,s+m.length+t.length);}
+function lines(fn){const v=ta.value,s=v.lastIndexOf('\n',ta.selectionStart-1)+1;let e=v.indexOf('\n',ta.selectionEnd);if(e<0)e=v.length;
+  const blk=v.slice(s,e).split('\n').map(fn).join('\n');edit(s,e,blk,s,s+blk.length);}
+function select(s,e){ta.focus();ta.setSelectionRange(s,e);ta.blur();ta.focus();ta.setSelectionRange(s,e);follow();}  // blur/focus scrolls it into view
+function nextBlank(){const b=blanks();if(!b.length)return;const t=b.find(x=>x.s>=ta.selectionEnd)||b[0];select(t.s,t.e);}
+// ---- find & replace
+const rx=()=>{const q=$('fq').value;return q?new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'):null;};
+function fcount(){const r=rx(),n=r?(ta.value.match(r)||[]).length:0;$('fc').textContent=$('fq').value?n+' found':'';return n;}
+function fnext(){const r=rx();if(!r)return;r.lastIndex=ta.selectionEnd;let m=r.exec(ta.value);if(!m){r.lastIndex=0;m=r.exec(ta.value);}
+  if(m)select(m.index,m.index+m[0].length);}
+function f1(){const r=rx();if(!r)return;const sel=ta.value.slice(ta.selectionStart,ta.selectionEnd);
+  if(sel&&sel.toLowerCase()===$('fq').value.toLowerCase()){const s=ta.selectionStart;edit(s,ta.selectionEnd,$('fw').value,s,s+$('fw').value.length);}fnext();fcount();}
+function fall(){const r=rx();if(!r||!fcount())return;const nv=ta.value.replace(r,()=>$('fw').value);edit(0,ta.value.length,nv,0,0);fcount();}
+function toggleFind(open){const f=$('fr');const o=open===undefined?!f.classList.contains('open'):open;f.classList.toggle('open',o);$('bF').classList.toggle('on',o);
+  if(o){const sel=ta.value.slice(ta.selectionStart,ta.selectionEnd);if(sel&&!sel.includes('\n'))$('fq').value=sel;$('fq').focus();$('fq').select();fcount();}frame();}
+// ---- wiring
+$('bU').onclick=()=>{ta.focus();document.execCommand('undo');}; $('bY').onclick=()=>{ta.focus();document.execCommand('redo');};
+$('bB').onclick=()=>wrap('**'); $('bI').onclick=()=>wrap('*');
+$('bH').onclick=()=>lines(l=>l.replace(/\*\*/g,'').toUpperCase());
+$('bL').onclick=()=>lines(l=>l.startsWith('- ')?l.slice(2):'- '+l);
+$('bF').onclick=()=>toggleFind(); $('fx').onclick=()=>toggleFind(false); $('bN').onclick=nextBlank; $('cb').onclick=nextBlank;
+$('fq').addEventListener('input',fcount); $('fn').onclick=fnext; $('f1').onclick=f1; $('fa').onclick=fall;
+$('fq').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fnext();}if(e.key==='Escape')toggleFind(false);});
+$('fw').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();f1();}if(e.key==='Escape')toggleFind(false);});
+$('bS').onclick=()=>{clearTimeout(timer);const b=$('bS');b.disabled=true;b.textContent='Saving\u2026';push({save:Date.now()});};
+$('bR').onclick=()=>{if(ta.value!==original&&!confirm('Discard all your edits and restore the original generated text?'))return;edit(0,ta.value.length,original,0,0);flush();};
+ta.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
+  if(k==='s'){e.preventDefault();$('bS').click();} else if(k==='b'){e.preventDefault();wrap('**');} else if(k==='i'){e.preventDefault();wrap('*');} else if(k==='h'&&e.shiftKey){e.preventDefault();toggleFind(true);}});
+ta.addEventListener('input',changed); ta.addEventListener('blur',flush);
+['click','keyup'].forEach(ev=>ta.addEventListener(ev,follow));
+window.addEventListener('resize',frame);
+window.addEventListener('message',ev=>{const d=ev.data;if(!d||d.type!=='streamlit:render')return;
+  const a=d.args||{};original=a.original||'';
+  const sb=$('bS');sb.disabled=false;sb.innerHTML='&#128190; Save &amp; continue';
+  if(a.token!==token){token=a.token;ta.value=a.text||'';render();}   // only overwrite on a new editing session
+  stats();frame();});
+send('componentReady',{apiVersion:1}); frame();
+</script></body></html>
