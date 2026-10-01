@@ -1,4 +1,4 @@
-# LegalEase - AI Legal Document Generator (India-focused)
+# LegalEase - AI Legal Document Generator
 
 Streamlit UI + FastAPI backend + Gemini drafting (with an offline template fallback).
 
