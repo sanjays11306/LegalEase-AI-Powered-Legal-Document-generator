@@ -14,8 +14,7 @@ Run both commands from the project root.
 ## Features
 * **Questions depend on the document type** - `ai_core/document_schemas.py`.
 * **Before you sign (India)** - the preview page shows stamp-paper, lease-registration (> 1 year), firm-registration,
-  non-compete and tax notices (`ai_core/india_legal.py`). **These texts are not lawyer-reviewed: have an Indian
-  advocate check them before you ship.**
+  non-compete and tax notices (`ai_core/india_legal.py`). 
 * **Review for risks** - a button that flags missing or vague clauses (termination, liability, jurisdiction, unfilled
   blanks, ...). Free rule-based checks always run; with a Gemini key an AI pass adds more (`ai_core/review.py`).
 * **Tamil / Hindi** - pick a language on the form (needs a Gemini key; the offline template is English only).
